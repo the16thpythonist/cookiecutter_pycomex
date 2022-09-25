@@ -1,0 +1,14 @@
+{
+  "directory_name": "comex",
+  "project_slug": "{{ cookiecutter.directory_name }}",
+  "author_name": "John Doe",
+  "author_email": "johndoe@gmail.com",
+  "repo_url": "https://github.com/johndoe/{{ cookiecutter.project_slug }}",
+  "cli_name": "exp",
+  "anonymize": "y",
+  "version": "0.1.0",
+  "license": ["MIT"],
+  "_copy_without_render": [
+        "{{ cookiecutter.directory_name }}/templates/*"
+    ]
+}

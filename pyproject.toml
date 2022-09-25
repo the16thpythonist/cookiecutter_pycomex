@@ -1,0 +1,27 @@
+[build-system]
+requires = ["poetry>=1.2.0b2"]
+build-backend = "poetry.masonry.api"
+
+[tool.poetry]
+name = "comex_cookiecutter"
+version = "0.1.0"
+description = "Insert Description"
+license = "MIT"
+authors = ["Jonas Teufel <jonseb1998@gmail.com>"]
+maintainers = ["Jonas Teufel <jonseb1998@gmail.com>"]
+readme = "README.rst"
+keywords = []
+packages = [
+    { include = "{{ cookiecutter.directory_name }}" },
+]
+include = [
+    "README.rst",
+    "HISTORY.rst",
+]
+
+[tool.poetry.dependencies]
+python = ">=3.8.0"
+
+[tool.poetry_bumpversion.file."README.rst"]
+search = '.. |version| image:: https://img.shields.io/badge/version-{old_version}-orange.svg'
+replace = '.. |version| image:: https://img.shields.io/badge/version-{new_version}-orange.svg'
