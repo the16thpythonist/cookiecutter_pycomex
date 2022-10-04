@@ -18,3 +18,4 @@ History
 - Fixed some other templating issues in ``pyproject.toml``
 - Added cookiecutter tests in the ``tests/test_cookiecutter.py`` file, using the plugins
   ``pytest.cookies`` and ``pytest.venv``.
+- Extended the tests templating a bit by adding a ``tests/util.py`` and a ``tests/assets`` folder
