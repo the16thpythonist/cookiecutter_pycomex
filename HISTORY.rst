@@ -2,12 +2,12 @@
 History
 =========
 
-0.1.0 (2022-09-25)
+0.1.0 (25.09.2022)
 ------------------
 
 - Initial commit
 
-0.2.0 (2022-10-04)
+0.2.0 (10.04.2022)
 ------------------
 
 - Changed the local Poetry_ configuration in ``poetry.toml`` so that it does not create a separate
@@ -19,3 +19,16 @@ History
 - Added cookiecutter tests in the ``tests/test_cookiecutter.py`` file, using the plugins
   ``pytest.cookies`` and ``pytest.venv``.
 - Extended the tests templating a bit by adding a ``tests/util.py`` and a ``tests/assets`` folder
+
+0.2.1 (10.04.2022)
+------------------
+
+- Fixed a bug with the ``anon`` and ``de-anon`` commands where they would raise an exception for files with
+  the wrong encoding. Now simply wrapped the corresponding section in a try-except
+- Added a test case which executes the unittests of the actual bare-bones project folder.
+
+0.3.0 (25.02.2023)
+------------------
+
+- Fixes the ``pyproject.toml`` to work with editable installs
+- Added new templates for more advanced experiment inheritance

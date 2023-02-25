@@ -52,16 +52,19 @@ def anonymize(path: str, exclude: List[str]):
             if file_name == '.identity.json' or extension in exclude:
                 continue
 
-            with open(file_path, mode='r') as file:
-                content = file.read()
+            try:
+                with open(file_path, mode='r') as file:
+                    content = file.read()
 
-            # Now inside the content we need to replace every mention of each of the words
-            for identity_data in identity_dict.values():
-                content = content.replace(identity_data['real'], identity_data['anon'])
+                # Now inside the content we need to replace every mention of each of the words
+                for identity_data in identity_dict.values():
+                    content = content.replace(identity_data['real'], identity_data['anon'])
 
-            with open(file_path, mode='w') as file:
-                file.write(content)
-                counter += 1
+                with open(file_path, mode='w') as file:
+                    file.write(content)
+                    counter += 1
+            except UnicodeDecodeError:
+                continue
 
     click.secho(f'anonymized {counter} files')
 
@@ -103,16 +106,19 @@ def deanonymize(path: str, exclude: List[str]):
             if file_name == '.identity.json' or extension in exclude:
                 continue
 
-            with open(file_path, mode='r') as file:
-                content = file.read()
+            try:
+                with open(file_path, mode='r') as file:
+                    content = file.read()
 
-            # Now inside the content we need to replace every mention of each of the words
-            for identity_data in identity_dict.values():
-                content = content.replace(identity_data['anon'], identity_data['real'])
+                # Now inside the content we need to replace every mention of each of the words
+                for identity_data in identity_dict.values():
+                    content = content.replace(identity_data['anon'], identity_data['real'])
 
-            with open(file_path, mode='w') as file:
-                file.write(content)
-                counter += 1
+                with open(file_path, mode='w') as file:
+                    file.write(content)
+                    counter += 1
+            except UnicodeDecodeError:
+                continue
 
     click.secho(f'de-anonymized {counter} files')
 

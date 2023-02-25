@@ -3,6 +3,7 @@ from pytest_venv import VirtualEnvironment
 
 from .util import PATH, PROJECT_PATH
 from .util import run_command
+from .util import prepare_poetry
 
 
 def test_bake(cookies):
@@ -125,4 +126,22 @@ def test_poetry(cookies, venv):
     assert '0.4.0' in out
 
 
+def test_testing(cookies, venv):
+    context = {
+        'directory_name': 'compex',
+        'project_slug': 'compex',
+        'version': '0.3.0'
+    }
+    result = cookies.bake(template=PROJECT_PATH, extra_context=context)
+    poetry, path = prepare_poetry(result.project_path, venv)
 
+    # First we check if pytest is even available for the venv binary
+    pytest_command = f'{venv.python} -c "import pytest"'
+    proc, out, err = run_command(pytest_command)
+    assert proc.returncode == 0
+
+    # Then we can actually run pytest for the tests inside the project folder
+    tests_path = os.path.join(path, 'tests')
+    test_command = f'{venv.python} -m pytest -s {tests_path}'
+    proc, out, err = run_command(test_command)
+    assert proc.returncode == 0

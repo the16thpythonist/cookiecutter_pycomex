@@ -7,7 +7,7 @@ from .util import ASSETS_PATH
 
 
 def test_get_version():
-    version = get_version
+    version = get_version()
     assert isinstance(version, str)
     assert version != ''
 
