@@ -28,7 +28,7 @@ def test_bake(cookies):
 
     package_path = os.path.join(result.project_path, 'compex')
     files = os.listdir(package_path)
-    expected_files = ['VERSION', 'util.py', 'cli.py', 'templates', 'experiments']
+    expected_files = ['VERSION', 'utils.py', 'cli.py', 'templates', 'experiments']
     for file_name in expected_files:
         assert file_name in files
 
@@ -62,6 +62,8 @@ def test_installation(cookies, venv):
     assert os.path.exists(cli_path) and os.path.isfile(cli_path)
     cli_command = f'{cli_path} --help'
     proc, out, err = run_command(cli_command)
+    print('out', out)
+    print('err', err)
     assert proc.returncode == 0
     assert out != ''
 

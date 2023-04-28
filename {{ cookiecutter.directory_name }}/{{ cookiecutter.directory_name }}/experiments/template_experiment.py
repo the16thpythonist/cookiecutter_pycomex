@@ -11,25 +11,25 @@ import pathlib
 import numpy as np
 import matplotlib.pyplot as plt
 
-from pycomex.experiment import Experiment
-from pycomex.util import Skippable
+from pycomex.functional.experiment import Experiment
+from pycomex.utils import folder_path, file_namespace
 
 PATH = pathlib.Path(__file__).parent.absolute()
-
-SHORT_DESCRIPTION = (
-    'This will be the short description when listing the experiments from the command line'
-)
-
-# == EXPERIMENT PARAMETERS ==
-BASE_PATH = PATH
-NAMESPACE = 'results/template'
-DEBUG = True
-with Skippable(), (e := Experiment(BASE_PATH, NAMESPACE, globals())):
-    # "e.info" should be used instead of "print". It will use python's "logging" module to not only
-    # print the content ot the console but also write it into a log file at the same time.
-    e.info('starting experiment...')
+__DEBUG__ = True
 
 
-# == ANALYSIS ==
-with Skippable(), e.analysis:
-    e.info('starting analysis...')
+@Experiment(base_path=folder_path(__file__),
+            namespace=file_namespace(__file__),
+            glob=globals())
+def experiment(e: Experiment):
+    e.log('starting experiment...')
+
+    e.apply_hook('hook', parameter=1)
+
+
+@experiment.analysis
+def analysis(e: Experiment):
+    e.log('starting analysis...')
+
+
+experiment.run_if_main()

@@ -5,9 +5,9 @@ from typing import List
 import click
 from pycomex.cli import ExperimentCLI
 
-from {{ cookiecutter.directory_name }}.util import PATH
-from {{ cookiecutter.directory_name }}.util import get_version
-from {{ cookiecutter.directory_name }}.util import CsvString
+from {{ cookiecutter.directory_name }}.utils import PATH
+from {{ cookiecutter.directory_name }}.utils import get_version
+from {{ cookiecutter.directory_name }}.utils import CsvString
 
 cli = ExperimentCLI(
     name='{{ cookiecutter.cli_name }}',

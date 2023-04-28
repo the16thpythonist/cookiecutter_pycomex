@@ -2,7 +2,9 @@ import os
 import shutil
 import pathlib
 import logging
+import string
 import tempfile
+import random
 import subprocess
 from typing import List
 
@@ -56,7 +58,26 @@ class CsvString(click.ParamType):
             return value.split(',')
 
 
-# == LATEX RELATED ==
+# == STRING UTILITY ==
+# These are some helper functions for some common string related problems
+
+def random_string(length: int,
+                  chars: string.ascii_letters + string.digits
+                  ) -> str:
+    """
+    Generates a random string with ``length`` characters, which may consist of any upper and lower case
+    latin characters and any digit.
+
+    The random string will not contain any special characters and no whitespaces etc.
+
+    :param length: How many characters the random string should have
+    :param chars: A list of all characters which may be part of the random string
+    :return:
+    """
+    return ''.join(random.choices(chars, k=length))
+
+
+# == LATEX UTILITY ==
 # These functions are meant to provide a starting point for custom latex rendering. That is rendering latex
 # from python strings, which were (most likely) dynamically generated based on some kind of experiment data
 

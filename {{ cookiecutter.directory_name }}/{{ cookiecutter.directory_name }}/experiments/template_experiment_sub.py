@@ -8,18 +8,27 @@ CHANGELOG
 import os
 import pathlib
 
-from pycomex.experiment import SubExperiment
-from pycomex.util import Skippable
+from pycomex.functional.experiment import Experiment
+from pycomex.utils import file_namespace, folder_path
 
 PATH = pathlib.Path(__file__).parent.absolute()
 
-# == EXPERIMENT PARAMETERS ==
-EXPERIMENT_PATH = os.path.join(PATH, 'template_experiment.py')
-BASE_PATH = PATH
-NAMESPACE = 'results/template'
-DEBUG = True
-with Skippable(), (se := SubExperiment(EXPERIMENT_PATH, BASE_PATH, NAMESPACE, globals())):
+experiment = Experiment.extend(
+    'template_experiment.py',
+    base_path=folder_path(__file__),
+    namespace=file_namespace(__file__),
+    glob=globals()
+)
 
-    @se.hook('end_experiment')
-    def hook(e):
-        e.info('adding additional implementations to the end of the experiment...')
+
+@experiment.hook('hook')
+def hook(e, parameter):
+    e.log(f'parameter: {parameter}')
+
+
+@experiment.analysis
+def analysis(e):
+    e.log('more analysis...')
+
+
+experiment.run_if_main()

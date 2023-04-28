@@ -32,3 +32,11 @@ History
 
 - Fixes the ``pyproject.toml`` to work with editable installs
 - Added new templates for more advanced experiment inheritance
+
+0.4.0 (28.04.2023)
+------------------
+
+- Changed the ``pycomex`` version dependency
+- Now using the pycomex functional API everywhere
+- Added some utility functions
+
