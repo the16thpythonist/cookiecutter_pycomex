@@ -1,3 +1,4 @@
+=========================
 Computational Experiments
 =========================
 
@@ -12,8 +13,9 @@ persistently stored. Pycomex offers various other advanced features such as deco
 and experiment inheritance which may or may not be important to fully understand the implementations of
 all the experiments in this folder. For more information visit: https://github.com/the16hpythonist/pycomex
 
+===================
 List of Experiments
--------------------
+===================
 
 The following list gives a brief overview of the experiments and their purpose:
 

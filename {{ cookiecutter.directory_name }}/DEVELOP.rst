@@ -1,14 +1,15 @@
-======================
-Development Cheatsheet
-======================
+=========================
+📋 Development Cheatsheet
+=========================
 
+======
 Poetry
 ======
 
-Setting up virtualenv development environment
----------------------------------------------
+This project uses Poetry_ for package managment.
 
-This project uses Poetry_ for package managment
+Setting up virtualenv development environment
+=============================================
 
 First you need to create a new ``virtualenv`` in the root directory of the project. Then you need to
 activate that environment and install Poetry_ into it.
@@ -34,11 +35,12 @@ always attempt to use the system python binary and not the venv binary!
 .. _Poetry: https://python-poetry.org/
 
 
+===
 Git
 ===
 
 Add Remote Repository
----------------------
+=====================
 
 It makes sense to directly supply a Github personal auth token when registering a new remote location for
 the local repository, because that will remove any hassle with authentication when trying to push in the
@@ -51,7 +53,7 @@ future.
 
 
 Create Anonymous Github Repository
-----------------------------------
+==================================
 
 Some journals / conferences use a double blind review process, which means that all aspects of a submission
 need to be anonymized. This also includes the code that is submitted alongside the paper. This project

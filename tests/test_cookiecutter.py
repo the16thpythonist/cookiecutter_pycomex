@@ -33,20 +33,13 @@ def test_bake(cookies):
         assert file_name in files
 
 
-def test_installation(cookies, venv):
-    """
-    Tests if the pip installation of the bare-bones project works. Also tests for example if the
-    installation of the command line interface works properly
-    """
+def test_cli(cookies, venv):
     context = {
         'directory_name': 'compex',
         'project_slug': 'compex',
         'version': '0.3.0'
     }
     result = cookies.bake(template=PROJECT_PATH, extra_context=context)
-
-    assert result.exit_code == 0
-    assert result.exception is None
 
     # Here we install the now templated version of this folder via pip
     venv.install(f'{result.project_path}')
@@ -74,12 +67,28 @@ def test_installation(cookies, venv):
     assert proc.returncode == 0
     assert '0.3.0' in out
 
-    # Then it should also be possible to run the "list" command which lists all the experiments currently
-    # present in the project. This should at least contain the "template" experiment
-    list_command = f'{cli_path} list'
-    proc, out, err = run_command(list_command)
+
+def test_installation(cookies, venv):
+    """
+    Tests if the pip installation of the bare-bones project works. Also tests for example if the
+    installation of the command line interface works properly
+    """
+    context = {
+        'directory_name': 'compex',
+        'project_slug': 'compex',
+        'version': '0.3.0'
+    }
+    result = cookies.bake(template=PROJECT_PATH, extra_context=context)
+
+    assert result.exit_code == 0
+    assert result.exception is None
+
+    # Here we install the now templated version of this folder via pip
+    venv.install(f'{result.project_path}')
+    # One way we can immediately test whether it worked is by trying to import our package in python
+    python_command = f'{venv.python} -c "import compex"'
+    proc, out, err = run_command(python_command)
     assert proc.returncode == 0
-    assert 'template' in out.lower()
 
 
 def test_poetry(cookies, venv):

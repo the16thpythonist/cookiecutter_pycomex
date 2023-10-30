@@ -40,3 +40,6 @@ History
 - Now using the pycomex functional API everywhere
 - Added some utility functions
 
+0.5.0 (30.10.2023)
+------------------
+
