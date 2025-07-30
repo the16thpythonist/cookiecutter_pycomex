@@ -43,3 +43,10 @@ History
 0.5.0 (30.10.2023)
 ------------------
 
+- no entry
+
+0.6.0 (30.06.2025)
+------------------
+
+- Using `uv` as the package manager instead of `poetry`
+- Using `hatchling` as the build engine instead of `poetry`
