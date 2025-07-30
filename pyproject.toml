@@ -1,31 +1,56 @@
 [build-system]
-requires = ["poetry-core>=1.2.0b2"]
-build-backend = "poetry.core.masonry.api"
+requires = ["hatchling"]
+build-backend = "hatchling.build"
 
-[tool.poetry]
+[project]
 name = "comex_cookiecutter"
 version = "0.5.0"
 description = "A cookiecutter template for projects that use the pycomex computational experimentation micro framework"
-license = "MIT"
-authors = ["Jonas Teufel <jonseb1998@gmail.com>"]
-maintainers = ["Jonas Teufel <jonseb1998@gmail.com>"]
-readme = ""
-keywords = []
-packages = [
-    { include = "{{ cookiecutter.directory_name }}" },
+readme = "README.rst"
+authors = [
+    {name = "Jonas Teufel", email = "jonseb1998@gmail.com"},
 ]
+maintainers = [
+    {name = "Jonas Teufel", email = "jonseb1998@gmail.com"},
+]
+license = { text = "MIT" }
+keywords = []
+requires-python = ">=3.8.0"
+dependencies = [
+    "pytest>=7.1.3",
+    "pytest-cookies>=0.6.1",
+    "pytest-venv>=0.2.1",
+    "poetry-bumpversion>=0.3.0"
+]
+
+[tool.hatch.build]
+skip-excluded-dirs = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["{{ cookiecutter.directory_name }}"]
 include = [
     "README.rst",
     "HISTORY.rst",
 ]
 
-[tool.poetry.dependencies]
-python = ">=3.8.0"
-pytest = ">=7.1.3"
-pytest-cookies = ">=0.6.1"
-pytest-venv = ">=0.2.1"
-poetry-bumpversion = ">=0.3.0"
-
-[tool.poetry_bumpversion.file."README.rst"]
-search = 'version-{current_version}-orange.svg'
-replace = 'version-{new_version}-orange.svg'
+[tool.bumpversion]
+current_version = "0.5.0"
+parse = "(?<![=<>])(?P<major>\\d+)\\.(?P<minor>\\d+)\\.(?P<patch>\\d+)"
+serialize = ["{major}.{minor}.{patch}"]
+search = "{current_version}"
+replace = "{new_version}"
+regex = true
+ignore_missing_version = true
+tag = false
+sign_tags = false
+tag_name = "v{new_version}"
+tag_message = "Bump version: {current_version} → {new_version}"
+allow_dirty = true
+commit = false
+message = "Bump version: {current_version} → {new_version}"
+commit_args = ""
+files = [
+    {filename = "pyproject.toml", search="version = \"{current_version}\"", replace="version = \"{new_version}\""},
+    {filename = "README.rst"},
+    {filename = "{{ cookiecutter.directory_name }}/VERSION"},
+]

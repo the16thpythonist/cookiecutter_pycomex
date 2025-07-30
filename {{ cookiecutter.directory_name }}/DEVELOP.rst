@@ -2,37 +2,103 @@
 📋 Development Cheatsheet
 =========================
 
-======
-Poetry
-======
+=======================
+`uv` package management
+=======================
 
-This project uses Poetry_ for package managment.
+This project is intended to use uv_ for package managment, however it also possible to use any other package 
+management system such as `pip`, `conda` or `poetry`. The following instructions are for `uv`.
+
+Installing `uv`
+===============
+
+If not already installed on your system, you can install `uv` using the following command:
+
+.. code-block:: console
+
+    curl -LsSf https://astral.sh/uv/install.sh | sh
 
 Setting up virtualenv development environment
 =============================================
 
-First you need to create a new ``virtualenv`` in the root directory of the project. Then you need to
-activate that environment and install Poetry_ into it.
+As a next step you have to create a new virtual environment for the project. This can be done using the `uv venv` command.
+The `--seed` option makes sure that the important core packages are installed into the venv right away and the 
+python version for the venv can be specified using the `--python` option.
 
-.. code-block:: shell
+.. code-block:: console
 
-    python3 -m venv ./
-    ./venv/bin/activate
-    pip3 install poetry
+    uv venv --seed --python=3.10
 
-Then you can use ``poetry install`` to automatically install all the package dependencies listed within the
-``pyproject.toml`` file.
+This will create a new virtual environment in the `.venv` folder of the project. You can activate it using the
+following command:
 
-.. code-block:: shell
+.. code-block:: console
 
-    python3 -m poetry install
-    python3 -m poetry env use ./venv/bin/python
+    uv venv activate
 
-**NOTE:** Whenever invoking any poetry command within the virtualenv it is
-*necessary* to use the the format ``python -m poetry`` instead of just ``poetry`` because the latter will
-always attempt to use the system python binary and not the venv binary!
+Installing dependencies
+========================
+
+To install the dependencies of the project as they are listed in the `pyproject.toml` file you can use the `uv sync` 
+command like this in the root directory of the project:
+
+.. code-block:: console
+
+    uv sync
+
+Alternatively you can also use the `uv pip` interface to install the package into the current virtual environment in 
+editable mode:
+
+.. code-block:: console
+
+    uv pip install -e .
+
 
 .. _Poetry: https://python-poetry.org/
+.. _uv: https://docs.astral.sh/uv/getting-started/
+
+
+Publishing the package to PyPI
+==============================
+
+Using the given project structure and the `uv` package manager it is also fairly easy to publish the package to PyPI, 
+which will be explained in the following sections.
+
+Bumping the version
+-------------------
+
+First of all you need to bump the version of the package which is configured to be possible with the `bump-my-version`
+tool that can be installed like this:
+
+.. code-block:: console
+
+    uv tool install bump-my-version
+
+You can then use the tool to either bump the major, minor or patch version of the package like this:
+
+.. code-block:: console
+
+    bump-my-version bump -v major
+    bump-my-version bump -v minor
+    bump-my-version bimp -v patch
+
+Building the package
+---------------------
+
+After having incremented the version string, you can compile the new veresion of the package using the `uv build` command, 
+which will create the zipped source distribution and the wheel in the `dist` folder of the project.
+
+.. code-block:: console
+
+    uv build
+
+Publishing the package
+-----------------------
+
+To publish the package to PyPI you can use the `uv publish` command, which will automatically upload the new package version to PyPI.
+.. code-block:: console
+
+    uv publish --token='{your_api_token}'
 
 
 ===

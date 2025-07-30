@@ -11,11 +11,15 @@ from typing import List
 import click
 import jinja2 as j2
 
-
-PATH = pathlib.Path(__file__).parent.absolute()
-VERSION_PATH = os.path.join(PATH, 'VERSION')
-EXPERIMENTS_PATH = os.path.join(PATH, 'experiments')
-TEMPLATES_PATH = os.path.join(PATH, 'templates')
+# This variable stores the absolute path to the directory which this file is located in, which 
+# is the primary source code directory of the package.
+PATH: str = pathlib.Path(__file__).parent.absolute()
+# The path to the "VERSION" file of the package, which contains the version string.
+VERSION_PATH: str = os.path.join(PATH, 'VERSION')
+# The path to the pycomex experiments folder
+EXPERIMENTS_PATH: str = os.path.join(PATH, 'experiments')
+# The path to the folder containing all the jinja2 templates
+TEMPLATES_PATH: str = os.path.join(PATH, 'templates')
 
 # Use this jinja2 environment to conveniently load the jinja templates which are defined as files within the
 # "templates" folder of the package!
@@ -33,8 +37,8 @@ TEMPLATE_ENV.globals.update(**{
 NULL_LOGGER = logging.Logger('NULL')
 NULL_LOGGER.addHandler(logging.NullHandler())
 
-
-# == CLI RELATED ==
+# === CLI RELATED ===
+# The following functions are meant to be used as part of the command line interface (CLI) of the package.
 
 def get_version():
     """
@@ -62,7 +66,7 @@ class CsvString(click.ParamType):
 # These are some helper functions for some common string related problems
 
 def random_string(length: int,
-                  chars: string.ascii_letters + string.digits
+                  chars: list = string.ascii_letters + string.digits
                   ) -> str:
     """
     Generates a random string with ``length`` characters, which may consist of any upper and lower case
@@ -77,7 +81,7 @@ def random_string(length: int,
     return ''.join(random.choices(chars, k=length))
 
 
-# == LATEX UTILITY ==
+# === LATEX UTILITY ===
 # These functions are meant to provide a starting point for custom latex rendering. That is rendering latex
 # from python strings, which were (most likely) dynamically generated based on some kind of experiment data
 
